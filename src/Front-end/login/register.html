@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="register-body">
+        <div class="form">
+
+            <h1>REGISTER</h1>
+            <input id="email" type="text" placeholder="email id" />
+            <input id="phone" type="text" placeholder="phone number" />
+            <input id="password" type="password" placeholder="password" />
+            <input id="confirm_password" type="password" placeholder="confirm password" />
+            <button id="button">Create</button>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+            <p id="output" style="color:red"></p>
+        </div>
+    </div>
+</body>
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+    import { getDatabase, push, ref, set } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+
+
+
+    // TODO: Replace the following with your app's Firebase project configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCTcSHtzqGvj1fKSWshB2nGoh5Tth2_Dk4",
+        authDomain: "lyrical-lyceum-325716.firebaseapp.com",
+        projectId: "lyrical-lyceum-325716",
+        storageBucket: "lyrical-lyceum-325716.appspot.com",
+        messagingSenderId: "540554562515",
+        appId: "1:540554562515:web:979fc51e03638057df3d26"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getDatabase();
+
+    var button = document.getElementById("button").addEventListener("click", function () {
+        // instance variables
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        var today = new Date();
+        var date = today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate();
+        var loginAmount = 0;
+
+        // input fields validation
+        if (email == "" || phone == "" || password == "" || confirmPassword == ""){
+            document.getElementById("output").innerHTML = "input fields cannot be empty";
+        }
+        else if (password.length < 6){
+            document.getElementById("output").innerHTML = "password must be at least 6 characters long.";
+        }
+        else if (password.length >= 6){
+            if (password == confirmPassword) {
+                //emptying the output field if it is not already
+                document.getElementById("output").innerHTML = "";
+
+                //create account
+                createUserWithEmailAndPassword(auth, email, password).then(cred => {
+                    alert("Account successfully registered!")
+
+                    // push to realtime database
+                    set(ref(db, 'users/' + password), {
+                        email: email,
+                        phone: phone,
+                        SignupDate: date,
+                        loginDate: 'null',
+                        loginAmount: loginAmount
+                    }).then(cred =>{
+                        // redirecting user
+                        window.location = "login.html";
+                    });
+
+                }).catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    document.getElementById("output").innerHTML = "Invalid email or this account is already signed up"
+                })
+
+            }
+            else {
+                document.getElementById("output").innerHTML = "passwords in the input field do not match";
+            }
+
+        }
+    });
+</script>
+
+</html>

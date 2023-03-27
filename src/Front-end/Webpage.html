@@ -1,0 +1,513 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en" style="overflow: scroll">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Monash Info Centre</title>
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="images/covid_logo.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+  <link rel="apple-touch-icon-precomposed" href="images/covid_logo.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="images/covid_logo.png">
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <link rel="shortcut icon" href="images/covid_logo.png">
+
+  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+  <!--
+      <link rel="canonical" href="http://www.example.com/">
+      -->
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css">
+  <link rel="stylesheet" href="Webpage.css">
+
+
+  <style>
+    #view-source {
+      position: absolute;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+
+    .demo-card-square.mdl-card {
+      width: 440px;
+      height: 430px;
+    }
+
+    .demo-card-square>.mdl-card__title {
+      color: #fff;
+      background:
+        url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+    }
+  </style>
+</head>
+
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-color--primary">
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+      </div>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        <h3 style="color: #fff;">MONASH INFO CENTRE</h3>
+      </div>
+      <div style="margin-left: auto; margin-right: 20px;">
+        <button id="logout" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          LOGOUT
+        </button>
+      </div>
+
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row " style="height: 2px;">
+      </div>
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-light">
+        <h4 class="mdl-layout__tab is-active" style="color: #fff;">Covid Statistics</h4>
+      </div>
+    </header>
+
+
+
+
+    <main class="mdl-layout__content">
+      <div class="mdl-layout__tab-panel is-active" id="overview">
+
+        <!-- FIRST ROW -->
+        <div class="mdl-grid">
+          <!-- first widget -->
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text" style="height: 60px; align-self: center;">Types of vaccines based on
+                  their efficacy</h2>
+              </div>
+              <canvas id="vaccineEfficacy" width="320px" height="210px"></canvas>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+              <script>
+                var xValues = ["Pfizer", "Moderna", "Sinovac", "AstraZeneca"];
+                var yValues = [95, 94.1, 51, 63];
+                var barColors = ["red", "green", "blue", "orange"];
+                new Chart("vaccineEfficacy", {
+                  type: "bar",
+                  data: {
+                    labels: xValues,
+                    datasets: [{
+                      backgroundColor: barColors,
+                      data: yValues
+                    }]
+                  },
+                  options: {
+                    legend: { display: false },
+                    title: {
+                      display: true,
+                      text: "Efficacy Rate (%) against Types of Vaccines"
+                    },
+                    scales: {
+                      yAxes: [{
+                        display: true,
+                        ticks: {
+                          beginAtZero: true   // minimum value will be 0.
+                        }
+                      }]
+                    }
+                  }
+                });
+              </script>
+            </div>
+          </div>
+
+
+          <!-- second widget -->
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp ">
+              <div class="mdl-card__title mdl-card--expand" style="height: 30px; ">
+                <h2 class="mdl-card__title-text" align-self: center;>Covid Variants</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <style>
+                  table,
+                  th,
+                  td {
+                    border: 1px solid black;
+                  }
+                </style>
+                <table width=100%, height=55px>
+                  <tr>
+                    <th>Variant</th>
+                    <th>First outbreak</th>
+                    <th>Earliest sample</th>
+                  </tr>
+                  <tr>
+                    <td>Alpha</td>
+                    <td>United Kingdom</td>
+                    <td>Sep 2020</td>
+                  </tr>
+                  <tr>
+                    <td>Beta</td>
+                    <td>South Africa</td>
+                    <td>May 2020</td>
+                  </tr>
+                  <tr>
+                    <td>Gamma</td>
+                    <td>Brazil</td>
+                    <td>Nov 2020</td>
+                  </tr>
+                  <tr>
+                    <td>Delta</td>
+                    <td>India</td>
+                    <td>Oct 2020</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- third widget -->
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text" width="320px" height="210px" style="height: 60px; align-self: center;">
+                  Daily World case to Death Ratio</h2>
+              </div>
+              <div style="align-self: center;" width="320px" height="210px">
+                <canvas id="myChart"></canvas>
+              </div>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+              <script>
+
+                function getData(x, y) {
+                  const labels = [
+                    'Cases',
+                    'Number of Deaths'
+                  ];
+                  const data = {
+                    labels: labels,
+                    datasets: [{
+                      label: 'My First dataset',
+                      backgroundColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 99, 132)',
+                      ],
+
+                      data: [x, y],
+                      hoverOffset: 4
+                    }]
+                  };
+                  const config = {
+                    type: 'doughnut',
+                    data: data,
+                    options: {}
+                  };
+
+                  var myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config
+                  );
+                }
+
+                function getCases() {
+                  const url = "https://api.covid19api.com/summary";
+                  fetch(url).then(respones => respones.json())
+                    .then(data => {
+                      getData(data.Global.NewConfirmed, data.Global.NewDeaths);
+                    })
+                    .catch(err => console.warn(err));
+
+                }
+                getCases();
+
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="mdl-grid">
+          <!-- fourth widget -->
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text" style="height: 60px; align-self: center;">Top 10 Covid case country
+                  rank</h2>
+              </div>
+              <canvas id="CovidRank" width="320px" height="210px"></canvas>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+              <script>
+                const newInfectedChart = (xValues, yValues) => {
+                  var barColors = ["red", "red", "orange", "orange", "yellow", "yellow", "blue", "blue", "green", "green"];
+                  new Chart("CovidRank", {
+                    type: "bar",
+                    data: {
+                      labels: xValues,
+                      datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                      }]
+                    },
+                    options: {
+                      legend: { display: false },
+                      title: {
+                        display: true,
+                        text: "Top 10 Covid case country rank"
+                      },
+                      scales: {
+                        yAxes: [{
+                          display: true,
+                          ticks: {
+                            beginAtZero: true   // minimum value will be 0.
+                          }
+                        }]
+                      }
+                    }
+                  });
+                }
+
+                // Responsible for retrieving the neccessary information from the API
+                const getInfectedInformation = () => {
+                  const
+                    countryName = [],
+                    countryInfected = [],
+                    url = "https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true";
+                  fetch(url).then(res => res.json())
+                    .then(data => {
+                      //Sorting the information
+                      const sortedInfo = data.filter(({ infected }) => infected != null)
+                        .sort((a, b) => (a.infected > b.infected) ? -1 : (a.infected < b.infected) ? 1 : 0)
+                      //Extracting the neccessary info
+                      for (i = 0; i < 10; i++) {
+                        countryName.push(sortedInfo[i].country)
+                        countryInfected.push(sortedInfo[i].infected)
+                      }
+                      //Creating the chart with information
+                      newInfectedChart(countryName, countryInfected)
+                    })
+                    .catch(err => console.warn(err));
+                }
+                //calling the information to be displayed
+                getInfectedInformation();
+              </script>
+            </div>
+          </div>
+
+          <!-- fifth widget -->
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text" style="height: 60px; align-self: center;">Top 10 country Recovery cases
+                </h2>
+              </div>
+              <canvas id="RecoveryRate" width="320px" height="210px"></canvas>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+              <script>
+                const recoveredChart = (xValues, yValues) => {
+                  var barColors = ["green", "green", "yellow", "yellow", "orange", "orange", "blue", "blue", "red", "red"];
+                  new Chart("RecoveryRate", {
+                    type: "bar",
+                    data: {
+                      labels: xValues,
+                      datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                      }]
+                    },
+                    options: {
+                      legend: { display: false },
+                      title: {
+                        display: true,
+                        text: "Top 10 country Recovery cases"
+                      },
+                      scales: {
+                        yAxes: [{
+                          display: true,
+                          ticks: {
+                            beginAtZero: true   // minimum value will be 0.
+                          }
+                        }]
+                      }
+                    }
+                  });
+                }
+
+                // Responsible for retrieving the neccessary information from the API
+                const getRecoveredInformation = () => {
+                  const
+                    countryName = [],
+                    countryRecovered = [],
+                    url = "https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true";
+                  fetch(url).then(res => res.json())
+                    .then(data => {
+                      //Sorting the information
+                      const sortedInfo = data.filter(({ recovered }) => recovered != "NA" && recovered != null)
+                        .sort((a, b) => (a.recovered > b.recovered) ? -1 : (a.recovered < b.recovered) ? 1 : 0)
+                      //Extracting the neccessary info
+                      for (i = 0; i < 10; i++) {
+                        countryName.push(sortedInfo[i].country)
+                        //const convertedRate = (sortedInfo[i].recovered/sortedInfo[i].infected) * 100;
+                        countryRecovered.push(sortedInfo[i].recovered)
+                      }
+                      //Creating the chart with information
+                      recoveredChart(countryName, countryRecovered)
+                    })
+                    .catch(err => console.warn(err));
+                }
+                //calling the information to be displayed
+                getRecoveredInformation();
+              </script>
+            </div>
+          </div>
+
+          <!-- sixth widget -->
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text" style="height: 60px; align-self: center;">Usage rate of each vaccine
+                  type</h2>
+              </div>
+              <canvas id="vaccineUsage" width="320px" height="210px"></canvas>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+              <script>
+                var xValues = ["Pfizer", "Moderna", "Sinovac", "AstraZeneca", "Others"];
+                var barColors = ["red", "green", "blue", "orange", "purple"];
+
+                const labels = [
+                  xValues[0],
+                  xValues[1],
+                  xValues[2],
+                  xValues[3],
+                  xValues[4]
+                ];
+                const data = {
+                  labels: labels,
+                  datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: [
+                      'blue',
+                      'orange',
+                      'purple',
+                      'red',
+                      'green'
+                    ],
+
+                    data: [20.54, 6.99, 26.28, 17.52, 28.67],
+                    hoverOffset: 4
+                  }]
+                };
+                const config = {
+                  type: 'pie',
+                  data: data,
+                  options: {}
+                };
+
+                var myChart = new Chart(
+                  document.getElementById('vaccineUsage'),
+                  config
+                );
+              </script>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+  </div>
+
+
+  </main>
+  </div>
+  <!-- <a target="_blank" id="view-source"
+      class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onClick="window.location.reload();">Refresh</a> -->
+  <script src="button.js"></script>
+  <script src="https://code.getmdl.io/1.3.0/material.min.js">
+    // Get the modal
+    var modal = document.getElementById("poppup modal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("poppup btn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+    import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+
+    // TODO: Replace the following with your app's Firebase project configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTcSHtzqGvj1fKSWshB2nGoh5Tth2_Dk4",
+      authDomain: "lyrical-lyceum-325716.firebaseapp.com",
+      projectId: "lyrical-lyceum-325716",
+      storageBucket: "lyrical-lyceum-325716.appspot.com",
+      messagingSenderId: "540554562515",
+      appId: "1:540554562515:web:979fc51e03638057df3d26"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    var button = document.getElementById("logout").addEventListener("click", function () {
+      //instance variables
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        alert("Logged out successfully!");
+        window.location = "login/login.html";
+      }).catch((error) => {
+        alert("error trying to logout")
+      });
+
+
+    });
+  </script>
+</body>
+
+</html>

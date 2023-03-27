@@ -1,0 +1,61 @@
+body{
+    background-image: url(pic.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.login-body{
+    width: 420px;
+    padding: 10% 0 0;
+    margin: auto;
+}
+
+.register-body{
+    width: 420px;
+    padding: 10% 0 0;
+    margin: auto;
+}
+
+.main-body{
+    width: 420px;
+    padding: 10% 0 0;
+    margin: auto;
+}
+
+
+.form{
+    position: relative;
+    text-align: center;
+    background: #ffffff;
+    max-width: 420px;
+    margin: 0 auto 100px;
+    padding: 50px;
+}
+
+.form input{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    outline: 1;
+    background: #f2f2f2;
+    width: 94%;
+    border: 0;
+    padding: 10px;
+    margin: 0 0 15px;
+}
+
+.form button{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(90deg, #0162c8, #55e7fc);
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: white;
+}
+
+.form h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form p{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

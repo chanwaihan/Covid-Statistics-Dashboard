@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Login</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="login-body">
+            <div class="form">
+
+                <h1>LOGIN</h1>
+                <input id="email" type="text" placeholder="email" />
+                <input id="password" type="password" placeholder="password" />
+                <button id="button2">Login</button>
+                <p>Do not have an account? <a href="register.html">Sign Up</a></p>
+                <p id="output" style="color:red"></p>
+            </div>
+        </div>
+    </body>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+        import { getDatabase, push, ref, set, get, update, child } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+
+        // TODO: Replace the following with your app's Firebase project configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTcSHtzqGvj1fKSWshB2nGoh5Tth2_Dk4",
+            authDomain: "lyrical-lyceum-325716.firebaseapp.com",
+            projectId: "lyrical-lyceum-325716",
+            storageBucket: "lyrical-lyceum-325716.appspot.com",
+            messagingSenderId: "540554562515",
+            appId: "1:540554562515:web:979fc51e03638057df3d26"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getDatabase();
+
+        var button = document.getElementById("button2").addEventListener("click", function () {
+            //instance variables
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            if (email == "" || password == ""){
+                document.getElementById("output").innerHTML = "input fields cannot be empty";
+            }
+            else{
+                document.getElementById("output").innerHTML = "";
+                signInWithEmailAndPassword(auth, email, password).then(cred => {
+                    document.getElementById("output").innerHTML = "";
+                    //updating the login count of user
+                    const dbref = ref(db);
+                    if (email == 'kamalahshunee.kvelautham@monash.edu') {
+                        alert("admin");
+                        window.location = "../admin.html"
+                    }
+                    else {
+                        get(child(dbref,"users/" + password)).then((snapshot)=>{
+                        if(snapshot.exists()){
+                            var loginCount = snapshot.val().loginAmount;
+                            var loginNew = loginCount + 1;
+                            var today = new Date();
+                            var date = today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate();
+
+                            //updating the firebase for login count
+                            update(ref(db, 'users/' + password), {
+                                loginAmount: loginNew,
+                                loginDate: date
+                            }).then(cred => {
+                                alert("Log in successful!")
+                                // redirecting user
+                                window.location = "../Webpage.html";
+                            });
+                        }
+                    });
+                    }
+                }) .catch((error) => {
+                     const errorCode = error.code;
+                     const errorMessage = error.message;
+                     document.getElementById("output").innerHTML = "incorrect username and password combination";
+                 })
+
+
+            }
+
+
+        });
+    </script>
+</html>
