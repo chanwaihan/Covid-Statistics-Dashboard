@@ -1,5 +1,7 @@
 # Covid-Statistics-Dashboard
-
+<figure>
+  <img src="https://raw.githubusercontent.com/chanwaihan/Covid-Statistics-Dashboard/main/src/Front-end/images/covid_logo.png" alt="covid logo" title="Covid Logo" width="50%" height="50%">
+</figure>
 Monash University Malaysia<br>
 FIT2101 Software Engineering Process and Management<br>
 <br>
@@ -50,4 +52,8 @@ Group: Group 5
 | Mohammed Abidur Rashid | <ul><li>Development Team</li><li>Quality Assurance Team</li></ul>                      | Back-end       |
 
 ## Screenshots
-To be added.
+<figure>
+  <img src="https://raw.githubusercontent.com/chanwaihan/Covid-Statistics-Dashboard/main/screenshots/covid-statistics-dashboard.jpg" alt="Covid Statistics Dashboard" title="Covid Statistics Dashboard">
+  <figcaption>Figure 1: Covid Statistics Dashboard</figcaption>
+</figure>
+
